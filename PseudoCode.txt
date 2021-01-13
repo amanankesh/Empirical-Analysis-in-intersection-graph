@@ -1,0 +1,113 @@
+
+// minimum degree coloring
+
+Color(G(V,E), v, C):
+	nb = find_adj(G(V,E),v)
+	if (nb == null):
+		C[v] = 1
+		return 
+	C_nb = unique_color(nb)
+	C_all = unique_color(C)
+	C' = C_all - C_nb
+	if(C' == null):
+		C[v] = max(C)+ 1
+	else :
+		C[v] = C'[0]
+	return
+
+min_degree_Coloring(G(V,E), C):
+	
+	v = find_min_degree_vertex(V)
+	E_v = find_edges_on_v()
+	V' = V - {v}
+	E' = E - E_v
+	min_degree_Coloring(G(V', E'), C)
+	Color(G(V,E),v,C)
+	return
+
+
+
+// maximum independent set coloring
+	
+find_MIS(G(V,E), MIS):
+    if size(V) <1:
+        return MIS
+		
+    v = random_select(V)
+    nb = Adj(v)
+	V = V - {v}
+	
+    MIS1 = find_MIS(G(V - nb, E), MIS U {v})
+    MIS2 = find_MIS(G(V, E), MIS)
+    MIS = Max(MIS1, MIS2)
+    return MIS
+
+
+MIS_Coloring(G(V,E)):
+	color_count = 0
+	color[size(V)] = {0}
+	
+	while(size(V) != 0 ):
+		MIS = find_MIS(G(V,E))
+		color_count += 1
+		for v in MIS:
+			color[v] = color_count
+		V = V - MIS
+	return color
+	
+	
+// max Clique
+
+max_clique(G(V, E), C):
+	if (size(V) == 0):
+		return C
+		
+	v = random_select(V)
+	flag = True
+	
+	if(size(C) != 0):
+		for u in C:
+			if( u NOT in Adj(v)):
+				flag = false
+				break
+	V = V-{v}
+	C1 = {}
+	if(flag == True):
+		C1 = max_clique(G(V,E), C U {v})
+	C2 = max_clique(G(V,E), C)
+	
+	return max(size(C1), size(C2))
+	
+	
+	
+	
+here I am 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

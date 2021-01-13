@@ -1,0 +1,27 @@
+
+clique( G(V, E), Clique_set):
+	
+	if size of V is zero:
+		return Clique_set
+		
+	select a random vertex from the V as x
+	
+	if x is connected to all vertex in Clique_set:
+		Clique_set_with_x = clique( V - {x}, Clique_set U {x})   
+		
+	Clique_set_without_x = clique( V - {x}, Clique_set)
+	
+	if size of Clique_set_with_x > Clique_set_without_x:
+		return Clique_set_with_x
+	else
+		return Clique_set_without_x
+end
+
+
+/* 
+	U is Union
+	V-{x} is removes vertex x from V and all the edge incident on x
+*/
+
+//call
+clique(G(V,E), {})
